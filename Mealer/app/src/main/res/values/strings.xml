@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Mealer</string>
+    <!-- Strings related to login + registering -->
+    <string name="prompt_email">Email (Username)</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_firstname">First Name</string>
+    <string name="prompt_lastname">Last Name</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_ccardInfo">Credit Number</string>
+    <string name="prompt_voidCheque">Upload Picture</string>
+    <string name="prompt_cookDescription">Write some description about yourself</string>
+    <string name="action_sign_in">Login or Register</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="register">Register</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="move_register_p1">"or click"</string>
+    <string name="move_register_p2">"here"</string>
+    <string name="move_register_p3">"to register"</string>
+    <!--roles -->
+    <string name="admin">"Admin"</string>
+    <string name="cook">"Mealer Cook"</string>
+    <string name="customer">"Customer"</string>
 </resources>
