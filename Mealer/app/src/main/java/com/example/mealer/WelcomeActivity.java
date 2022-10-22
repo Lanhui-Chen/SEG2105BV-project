@@ -28,7 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void logout() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(CookWelcome.this,LoginForm.class));
+        startActivity(new Intent(WelcomeActivity.this,LoginForm.class));
         finish();
     }
     }
