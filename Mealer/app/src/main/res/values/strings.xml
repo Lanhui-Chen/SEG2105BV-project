@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Mealer</string>
     <!-- Strings related to login + registering -->
-    <string name="prompt_email">Email (Username)</string>
-    <string name="prompt_username">Username</string>
+    <string name="prompt_username">Email (Username)</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_firstname">First Name</string>
     <string name="prompt_lastname">Last Name</string>
@@ -21,4 +20,12 @@
     <string name="admin">"Admin"</string>
     <string name="cook">"Mealer Cook"</string>
     <string name="customer">"Customer"</string>
+    <!--errors -->
+    <string name="invalid_email">Not a valid email format</string>
+    <string name="email_taken">Email is already taken</string>
+    <string name="Nonexistent_email">Username does not exist</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="wrong_password">That password is incorrect</string>
+    <string name="invalid_role">Not a valid role</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
