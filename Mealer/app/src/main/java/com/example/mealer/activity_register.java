@@ -2,6 +2,7 @@ package com.example.mealer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,6 +50,17 @@ public class activity_register extends AppCompatActivity {
         address.setError("Enter address");
         ccard.setError("Enter a valid credit card number");
 
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    registerVerification();
+                }
+                return false;
+            }
+        });
+
 
         roleRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -57,13 +69,15 @@ public class activity_register extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radioButtonCook:
                         selectedRole = "Cook";
-                        ccard.setVisibility(View.VISIBLE);
+                        ccard.setVisibility(View.GONE);
+                        description.setVisibility(View.VISIBLE);
                         lastRadioButton.setError(null);
                         register.setEnabled(true);
                         break;
                     case R.id.radioButtonClient:
                         selectedRole = "Client";
-                        description.setVisibility(View.VISIBLE);
+                        description.setVisibility(View.GONE);
+                        ccard.setVisibility(View.VISIBLE);
                         lastRadioButton.setError(null);
                         register.setEnabled(true);
                         break;
@@ -79,6 +93,55 @@ public class activity_register extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void registerVerification() {
+
+        final EditText firstname = findViewById(R.id.firstname);
+        final EditText lastname = findViewById(R.id.lastname);
+        final EditText emailEditText = findViewById(R.id.username);
+        final EditText passwordEditText = findViewById(R.id.password);
+        final EditText address = findViewById(R.id.address);
+        final RadioGroup roleRadio = findViewById(R.id.radioGroupRole);
+        final RadioButton lastRadioButton = findViewById(R.id.radioButtonClient);
+        final EditText ccard = findViewById(R.id.ccard);
+        final EditText description = findViewById(R.id.description);
+        final Button register = findViewById(R.id.register);
+        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        register(firstname.getText().toString(), lastname.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString(),
+                address.getText().toString(), selectedRole, ccard.getText().toString(), description.getText().toString());
+
+        Intent intent = new Intent(activity_register.this, activity_login_successful.class);
+        intent.putExtra("EXTRA_USERNAME", emailEditText.getText().toString());
+        startActivity(intent);
+    }
+
+
+    public void register(String firstname, String lastname, String email, String password, String address, String role, String ccard, String description) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference newUserRoleRef = database.getReference("user/" + email + "/role");
+        DatabaseReference newUserFirstRef = database.getReference("user/" + email + "firstname");
+        DatabaseReference newUserLastRef = database.getReference("user/" + email + "lastname");
+        DatabaseReference newUserPasswordRef = database.getReference("user/" + email + "/password");
+        DatabaseReference newUserAddressRef = database.getReference("user/" + email + "address");
+        DatabaseReference newUserCCardRef = database.getReference("user/" + email + "ccard");
+        DatabaseReference newUserDescriptionRef = database.getReference("user/" + email + "descriptiono");
+
+        newUserRoleRef.setValue(role);
+        newUserFirstRef.setValue(firstname);
+        newUserLastRef.setValue(lastname);
+        newUserPasswordRef.setValue(password);
+        newUserAddressRef.setValue(address);
+
+        if(role.equals("Cook")){
+            newUserDescriptionRef.setValue(description);
+
+        }
+
+        if(role.equals("Client")){
+            newUserCCardRef.setValue(ccard);
+        }
     }
 
 }
